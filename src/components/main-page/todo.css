@@ -1,22 +1,36 @@
 .todolist {
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .input-todolist {
   /* background-color: #861c1c; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 500px;
-  margin: 0.25rem;
+  justify-content: center;
+  width: 80%;
+  /* margin: 0.25rem; */
 }
 
 .form-input {
   /* background-color: cornflowerblue; */
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
+  border: 1px solid rgb(231, 231, 231);
+  border-radius: 5px;
+  box-shadow: 2px 1px 5px rgba(221, 221, 221, 0.25);
   /* margin: 1rem; */
+}
+
+.list-todo {
+  /* background-color: cornflowerblue; */
+  margin-top: 1rem;
 }
