@@ -8,21 +8,17 @@ import firebase from "firebase";
 function Todo() {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
-  console.log("isi todos:", todos);
+  // console.log("isi todos:", todos);
+  console.log("isi inputs:", input);
 
   useEffect(() => {
     db.collection("todos")
-      .orderBy("timestamp", "desc")
+      .orderBy("timestamp", "asc")
       .onSnapshot((snapshot) => {
-        // console.log(
-        //   "isi dari fire base:",
-        //   snapshot.docs.map((doc) => doc.data())
-        // );
         setTodos(
           snapshot.docs.map((doc) => ({
             id: doc.id,
             todo: doc.data().todo,
-            // timestamp: doc.data().timestamp.seconds,
           }))
         );
       });
@@ -38,6 +34,13 @@ function Todo() {
     }
     setInput("");
   };
+  const handlleEdit = (id) => {
+    db.collection("todos").doc(id).delete();
+  };
+
+  const handlleDelete = (id) => {
+    db.collection("todos").doc(id).delete();
+  };
   return (
     <div className="todolist">
       <div className="input-todolist">
@@ -48,9 +51,7 @@ function Todo() {
             id="todoinput"
             label="Todo"
             style={{ width: "50%" }}
-            // variant="filled"
             placeholder="Todo List ..."
-            // helperText="masukan todo list yang di inginkan"
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
@@ -66,18 +67,16 @@ function Todo() {
           </Button>
         </form>
       </div>
-
       <hr />
-      <List
-        style={{
-          display: "Flex",
-          flexDirection: "column",
-          alignItems: "start",
-          width: "80%",
-        }}
-      >
+      {/* list data dari fire base */}
+      <List style={{ width: "80%" }}>
         {todos.map((todo) => (
-          <Listing key={todo.id} todo={todo} />
+          <Listing
+            key={todo.id}
+            todo={todo}
+            handlleDelete={handlleDelete}
+            handlleEdit={handlleEdit}
+          />
         ))}
       </List>
     </div>
