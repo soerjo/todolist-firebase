@@ -34,8 +34,15 @@ function Todo() {
     }
     setInput("");
   };
-  const handlleEdit = (id) => {
-    db.collection("todos").doc(id).delete();
+  const handlleEdit = (e, value, id) => {
+    e.preventDefault();
+    db.collection("todos").doc(id).set(
+      {
+        todo: value,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      },
+      { merge: true }
+    );
   };
 
   const handlleDelete = (id) => {
@@ -44,7 +51,7 @@ function Todo() {
   return (
     <div className="todolist">
       <div className="input-todolist">
-        <h2 style={{ marginTop: "0.5rem" }}>Hallo Soerjo Programers!</h2>
+        <h2 style={{ marginTop: "0.5rem" }}>Aplikasi Todo List Firebase!</h2>
 
         <form className="form-input">
           <TextField
